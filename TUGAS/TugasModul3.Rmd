@@ -1,0 +1,93 @@
+---
+title: "TugasModul3"
+author: "Nur Rosydatun Nafiah"
+date: "2022-09-14"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Import dataset "murders";
+```{r}
+library(dslabs) 
+data(murders)
+```
+
+## Nomor 1 ##
+1. Gunakan fungsi str untuk memeriksa struktur objek "murders". Manakah dari pernyataan berikut ini yang paling menggambarkan karakter dari tiap variabel pada data frame ?
+Jawab :
+c. Data berisi Nama negara bagian, singkatan dari nama negara bagian, wilayah negara bagian, dan populasi negara bagian serta jumlah total pembunuhan pada tahun 2010
+
+```{r}
+str(murders)
+```
+alasannya karena pilihan a, b, dan d salah dan pilihan yang paling benar adalah c. Data berisi nama negara bagian yaitu bagian state, singkatan dari negara bagian yaitu bagian abb, wilayah negara bagian yaitu bagian region, populasi negara bagian yaitu bagian population, dan jumlah total pembunuhan tahun 2010 ada di bagian total.
+
+## Nomor 2 ##
+2. Sebutkan apa saja nama kolom yang digunakan pada data frame
+Jawab :
+
+```{r}
+names(murders)
+```
+
+## Nomor 3 ##
+3. Gunakan operator aksesor ($) untuk mengekstrak informasi singkatan negara dan menyimpannya pada objek "a". Sebutkan jenis class dari objek tersebut
+Jawab :
+
+```{r}
+a <- murders$abb
+a
+class(a)
+```
+
+## Nomor 4 ##
+4. Gunakan tanda kurung siku untuk mengekstrak singkatan negara dan menyimpannya pada objek “b”. Tentukan apakah variabel “a” dan “b” bernilai sama? 
+Jawab :
+```{r}
+b <- murders[,2]
+b
+class(b)
+c <- b==a
+c
+```
+"a" dan "b" sama, karena keduanya merupakan vector character
+
+## Nomor 5 ##
+5. Variabel region memiliki tipe data: factor. Dengan satu baris kode, gunakan fungsi level dan length untuk menentukan jumlah region yang dimiliki dataset. 
+Jawab :
+```{r}
+length(levels(murders$region))
+```
+
+## Nomor 6 ##
+6.  Fungsi table dapat digunakan untuk ekstraksi data pada tipe vektor dan menampilkan frekuensi dari setiap elemen. Dengan menerapkan fungsi tersebut, dapat diketahui jumlah state pada tiap region. Gunakan fungsi table dalam satu baris kode untuk menampilkan tabel baru yang berisi jumlah state pada tiap region. 
+Jawab :
+```{r}
+table(murders$region)
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

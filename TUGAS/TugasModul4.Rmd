@@ -1,0 +1,132 @@
+---
+title: "TugasModul4"
+author: "Nur Rosydatun Nafiah"
+date: "2022-09-15"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dslabs) 
+data("murders")
+```
+
+
+## Nomor 1 ##
+1. Gunakan operator aksesor ($) untuk mengakses variabel populasi dan menyimpannya pada objek baru “pop”. Kemudian gunakan fungsi sort untuk mengurutkan variabel “pop”. Pada langkah terakhir, gunakan operator ([) untuk menampilkan nilai populasi terkecil. 
+Jawab :
+```{r}
+pop <- murders$population
+popSort <- sort(pop)
+popSort[1]
+```
+
+## Nomor 2 ##
+2. Tampilkan indeks dari data yang memiliki nilai populasi terkecil. 
+Petunjuk: gunakan fungsi order. 
+Jawab :
+```{r}
+index <- order(pop)
+index[1]
+```
+
+## Nomor 3 ##
+3. Dengan fungsi which.min, Tulis satu baris kode yang dapat menampilkan hasil yang sama dengan langkah diatas.
+Jawab :
+```{r}
+which.min(pop)
+
+```
+
+
+## Nomor 4 ##
+4. Tampilkan nama negara yang memiliki populasi terkecil.
+Jawab :
+```{r}
+minPop <- which.min(murders$population)
+murders$state[minPop]
+```
+
+## Nomor 5 ##
+5. Untuk membuat data frame baru, contoh script yang dapat digunakan adalah sebagai berikut:
+```{r}
+temp <- c(35, 88, 42, 84, 81, 30)
+city <- c("Beijing", "Lagos", "Paris", "Rio de Janeiro",
+          "San Juan", "Toronto")
+city_temps <- data.frame(name = city, temperature = temp)
+city_temps
+```
+Gunakan fungsi rank untuk menentukan peringkat populasi dari tiap negara bagian, dimulai dari nilai terkecil hingga terbesar. Simpan hasil pemeringkatan di objek baru “ranks”, lalu buat data frame baru yang berisi nama negara bagian dan peringkatnya dengan nama “my_df”. 
+Jawab :
+```{r}
+ranks <- rank(pop)
+my_df <- data.frame(NegaraBagian = murders$state, peringkat = ranks)
+my_df
+```
+
+## Nomor 6 ##
+6. Ulangi langkah sebelumnya, namun kali ini urutkan my_df dengan fungsi order agar data yang ditampilkan merupakan data yang telah diurutkan dari populasi yang paling tidak padat hingga ke yang terpadat.
+Petunjuk: buat objek “ind” yang akan menyimpan indeks yang diperlukan dalam mengurutkan data populasi 
+Jawab :
+```{r}
+ind <- order(my_df$peringkat)
+my_df[ind,]
+```
+
+## Nomor 7 ##
+7. Untuk keperluan analisis data, akan dibuat plot yang memvisualisasikan total pembunuhan terhadap populasi dan mengidentifikasi hubungan antara keduanya. Script yang digunakan:
+```{r}
+population_in_millions <- murders$population/10^6
+total_gun_murders <- murders$total
+plot(population_in_millions, total_gun_murders)
+```
+Perlu diingat bahwa beberapa negara bagian memiliki populasi di bawah 5 juta, sehingga untuk mempermudah analisis, buat plot dalam skala log. Transformasi nilai variabel menggunakan transformasi log10,kemudian tampilkan plot-nya. 
+Jawab :
+```{r}
+population_in_millions <- log10(murders$population/10^6)
+total_gun_murders <- murders$total
+plot(population_in_millions, total_gun_murders)
+```
+
+## Nomor 8 ##
+8. Buat histogram dari populasi negara bagian.
+Jawab :
+```{r}
+population<- murders$population/10^6
+hist(population, main = "Populasi Negara Bagian")
+```
+
+## Nomor 9 ##
+Jawab :
+9. Hasilkan boxplot dari populasi negara bagian berdasarkan wilayahnya. 
+Jawab :
+```{r}
+boxplot(population~region, data = murders)
+```
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
